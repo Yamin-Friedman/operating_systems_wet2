@@ -15,10 +15,14 @@ class Account {
 public:
 	Account(int id, char password[PASSWORD_LEN + 1], int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
 		strcpy(password_,password);
-		pthread_mutex_init(&account_write_lock, NULL);
+		pthread_mutex_init(&wrl, NULL);
+		pthread_cond_init(&c, NULL);
+		read_count = 0;
+		write_flag = false;
 	}
 	~Account(){
-		pthread_mutex_destroy(&account_write_lock);
+		pthread_mutex_destroy(&wrl);
+		pthread_cond_destroy(&c);
 	};
 	int get_ID() const {
 		return id_;
@@ -50,7 +54,10 @@ public:
 		}
 	}
 
-	pthread_mutex_t account_write_lock;
+	pthread_mutex_t wrl;
+	pthread_cond_t c;
+	int read_count;
+	bool write_flag;
 private:
 	int id_;
 	char password_[PASSWORD_LEN + 1];

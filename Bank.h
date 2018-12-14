@@ -22,7 +22,10 @@ public:
 	}
 	bool insert_account(Account *account);
 
-	pthread_mutex_t account_map_write_lock;
+	pthread_mutex_t wrl;
+	pthread_cond_t c;
+	int read_count;
+	bool write_flag;
 private:
 	map<int, Account*> account_map;
 };
