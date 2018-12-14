@@ -10,7 +10,10 @@ void ATM::open_account(int id, char password[PASSWORD_LEN + 1], int init_balance
 		return;
 	}
 	Account *new_account = new Account(id,password,init_balance,false);
+	pthread_mutex_lock(&bank_->account_map_write_lock);
 	bank_->insert_account(new_account);
+	sleep(1);
+	pthread_mutex_unlock(&bank_->account_map_write_lock);
 	cout << id_ << ": New account id is " << id << " with password " << password << " and initial balance " << init_balance << endl;
 }
 
@@ -19,7 +22,10 @@ void ATM::make_VIP(int id, char password[PASSWORD_LEN + 1]){
 	if(account == NULL || !account->check_password(password)){
 		cout << "Error " << id_ << ": Your transaction failed – password for account id " << id << " is incorrect" << endl;
 	}else{
+		pthread_mutex_lock(&account->account_map_write_lock);
 		account->change_VIP_status(true);
+		sleep(1);
+		pthread_mutex_unlock(&account->account_map_write_lock);
 	}
 }
 
@@ -79,5 +85,5 @@ void ATM::check_balance(int id, char password[PASSWORD_LEN + 1]){
 }
 
 void ATM::transfer_money(int id, char password[PASSWORD_LEN + 1], int target_id, int amount){
-	
+
 }

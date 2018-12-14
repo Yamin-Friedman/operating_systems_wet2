@@ -7,12 +7,12 @@
 
 #include <map>
 #include "Account.h"
+#include <pthread.h>
 
 using namespace std;
 
 class Bank {
 public:
-	
 	Bank();
 	~Bank();
 	Account *get_account(int id){
@@ -21,6 +21,8 @@ public:
 		return NULL;
 	}
 	bool insert_account(Account *account);
+
+	pthread_mutex_t account_map_write_lock;
 private:
 	map<int, Account*> account_map;
 };

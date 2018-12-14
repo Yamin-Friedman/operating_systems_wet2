@@ -6,14 +6,20 @@
 #define WET2_ACCOUNT_H
 
 #include <cstring>
+#include <pthread.h>
 
 #define PASSWORD_LEN 4
 
 
 class Account {
 public:
-	Account(int id, char password[PASSWORD_LEN + 1], int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){strcpy(password_,password);}
-	~Account();
+	Account(int id, char password[PASSWORD_LEN + 1], int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
+		strcpy(password_,password);
+		pthread_mutex_init(&account_write_lock, NULL);
+	}
+	~Account(){
+		pthread_mutex_destroy(&account_write_lock);
+	};
 	int get_ID() const {
 		return id_;
 	}
@@ -43,6 +49,8 @@ public:
 			balance_ -= rhs;
 		}
 	}
+
+	pthread_mutex_t account_write_lock;
 private:
 	int id_;
 	char password_[PASSWORD_LEN + 1];
