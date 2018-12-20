@@ -6,7 +6,7 @@
 #include "Bank.h"
 #include <iostream>
 #include <pthread.h>
-#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -22,10 +22,11 @@ public:
 	void withdrawl(int id, char password[PASSWORD_LEN + 1], int amount);
 	void check_balance(int id, char password[PASSWORD_LEN + 1]);
 	void transfer_money(int id, char password[PASSWORD_LEN + 1], int target_id, int amount);
+
+	ostream input_file;
 private:
 	int id_;
 	Bank *bank_;
-	ostream input_file;
 };
 
 

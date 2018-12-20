@@ -17,7 +17,7 @@ void *ATM_run_commands(void *ATM_pointer) {
     int id;
     string password;
 
-    while ( getline (myfile,line) ){
+    while ( getline (ATM->myfile,line) ){
         vector<string> args;
         istringstream stream(line);
         string arg;
@@ -67,18 +67,75 @@ void *ATM_run_commands(void *ATM_pointer) {
         }
         usleep(100);
     }
+    ATM->input_file.close();
+    delete ATM;
+    pthread_exit(NULL);
+}
+
+// This is the function that the thread that charges commisions runs
+void *bank_charge_commisions(void *bank_ptr){
+    Bank *bank = (*Bank)bank_ptr;
+    while (bank->bank_open){
+        bank->charge_commision();
+        sleep(3);
+    }
+    pthread_exit(NULL);
+}
+
+// This is the function that the thread that prints the status runs
+void *bank_print_status(void *bank_ptr){
+    Bank *bank = (*Bank)bank_ptr;
+    while (bank->bank_open){
+        bank->print_status();
+        usleep(500);
+    }
     pthread_exit(NULL);
 }
 
 main(int argc,char **argv) {
     Bank bank;
+    int i, res;
+
+
+    // Check input
+
+    int num_ATM = stoi(argv[0]);
+    bank.output_log.open("log.txt");
 
     // Init ATMs and start threads
+    pthread_t threads[num_ATM + 2];
+    for (i = 0; i < num_ATM; i++) {
+        new_ATM = new ATM(ATM_id,&bank);
+        string input = argv[i + 1];
+        new_ATM->input_file.open(input);
+        res = pthread_create(&threads[i],NULL, ATM_run_commands, (void*)new_ATM);
+
+        if (res) {
+            cout << "Error:unable to create thread," << rc << endl;
+            exit(-1);
+        }
+    }
 
     // Start bank threads
+    res = pthread_create(&threads[i],NULL, bank_charge_commisions, (void*)&bank);
+    if (res) {
+        cout << "Error:unable to create thread," << rc << endl;
+        exit(-1);
+    }
+    res = pthread_create(&threads[i + 1],NULL, bank_print_status, (void*)&bank);
+    if (res) {
+        cout << "Error:unable to create thread," << rc << endl;
+        exit(-1);
+    }
 
-    // Poll to see if the ATMs are done
+    // wait until the ATMs are done
+    for (i = 0; i < num_ATM; i++){
+        pthread_join(threads[i],NULL);
+    }
+    bank.bank_open = false;
+    pthread_join(threads[i],NULL);
+    pthread_join(threads[i + 1],NULL);
 
-
+    bank.output_log.close();
 
 }

@@ -15,6 +15,7 @@ Bank::Bank(){
 		read_count = 0;
 		write_flag = false;
 		private_balance = 0;
+		bank_open = true;
 }
 
 Bank::~Bank(){
@@ -93,7 +94,7 @@ void Bank::charge_commision(){
 			int commision = (int)((account->get_balance() * percent )/ 100);
 			*account -= commision;
 			private_balance += commision;
-			cout << "Bank: commissions of " << percent << " % were charged, the bank gained " << commision << " $ from account " << account->get_ID() << endl;
+			output_log << "Bank: commissions of " << percent << " % were charged, the bank gained " << commision << " $ from account " << account->get_ID() << endl;
 		}
 
 		pthread_mutex_lock(&account->wrl);

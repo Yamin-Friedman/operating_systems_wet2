@@ -6,6 +6,8 @@
 #include "Account.h"
 #include <pthread.h>
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -27,6 +29,8 @@ public:
 	pthread_cond_t c;
 	int read_count;
 	bool write_flag;
+	ostream output_log;
+	bool bank_open; // This is a flag that will be lowered when all the ATMs finish working
 private:
 	map<int, Account*> account_map;
 	int private_balance;
