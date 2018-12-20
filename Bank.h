@@ -1,6 +1,3 @@
-//
-// Created by Yamin on 12/12/2018.
-//
 
 #ifndef WET2_BANK_H
 #define WET2_BANK_H
@@ -8,6 +5,7 @@
 #include <map>
 #include "Account.h"
 #include <pthread.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,6 +19,9 @@ public:
 		return NULL;
 	}
 	bool insert_account(Account *account);
+	void print_status();
+	void charge_commision();
+
 
 	pthread_mutex_t wrl;
 	pthread_cond_t c;
@@ -28,6 +29,7 @@ public:
 	bool write_flag;
 private:
 	map<int, Account*> account_map;
+	int private_balance;
 };
 
 

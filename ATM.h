@@ -1,6 +1,4 @@
-//
-// Created by Yamin on 12/12/2018.
-//
+
 
 #ifndef WET2_ATM_H
 #define WET2_ATM_H
@@ -8,6 +6,7 @@
 #include "Bank.h"
 #include <iostream>
 #include <pthread.h>
+#include <iostream>
 
 using namespace std;
 
@@ -26,6 +25,7 @@ public:
 private:
 	int id_;
 	Bank *bank_;
+	ostream input_file;
 };
 
 

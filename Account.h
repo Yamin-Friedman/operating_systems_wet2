@@ -1,6 +1,3 @@
-//
-// Created by Yamin on 12/12/2018.
-//
 
 #ifndef WET2_ACCOUNT_H
 #define WET2_ACCOUNT_H
@@ -30,6 +27,11 @@ public:
 	int get_balance() const {
 		return balance_;
 	}
+
+	string get_password() const {
+		return password_;
+	}
+
 	bool check_password(char password[PASSWORD_LEN + 1]) const {
 		if(strcmp(password,password_) == 0)
 			return true;
