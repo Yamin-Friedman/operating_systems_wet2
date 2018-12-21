@@ -4,14 +4,17 @@
 
 #include <cstring>
 #include <pthread.h>
+#include <string.h>
 
 #define PASSWORD_LEN 4
 
 
+
+
 class Account {
 public:
-	Account(int id, char password[PASSWORD_LEN + 1], int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
-		strcpy(password_,password);
+	Account(int id, string password, int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
+		password_ = password;
 		pthread_mutex_init(&wrl, NULL);
 		pthread_cond_init(&c, NULL);
 		read_count = 0;
@@ -28,12 +31,12 @@ public:
 		return balance_;
 	}
 
-	string get_password() const {
+	std::string get_password() const {
 		return password_;
 	}
 
-	bool check_password(char password[PASSWORD_LEN + 1]) const {
-		if(strcmp(password,password_) == 0)
+	bool check_password(std::string password) const {
+		if(password == password_)
 			return true;
 		return false;
 	}
@@ -62,7 +65,7 @@ public:
 	bool write_flag;
 private:
 	int id_;
-	char password_[PASSWORD_LEN + 1];
+	std::string password_;
 	int balance_;
 	bool VIP_;
 };

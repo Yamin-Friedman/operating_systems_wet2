@@ -23,7 +23,7 @@ public:
 	void check_balance(int id, char password[PASSWORD_LEN + 1]);
 	void transfer_money(int id, char password[PASSWORD_LEN + 1], int target_id, int amount);
 
-	ostream input_file;
+	ofstream input_file;
 private:
 	int id_;
 	Bank *bank_;
