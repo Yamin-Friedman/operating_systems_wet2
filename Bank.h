@@ -29,7 +29,7 @@ public:
 	pthread_cond_t c;
 	int read_count;
 	bool write_flag;
-	ofstream output_log;
+	fstream output_log;
 	bool bank_open; // This is a flag that will be lowered when all the ATMs finish working
 private:
 	map<int, Account*> account_map;

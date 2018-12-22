@@ -24,7 +24,7 @@ Bank::~Bank(){
 
 	// Might need to be fixed
 	map<int, Account*>::iterator it = account_map.begin();
-	for(it; it != account_map.end(); it++) {
+	for(; it != account_map.end(); it++) {
 		delete (*it).second;
 	}
 }
@@ -41,7 +41,7 @@ void Bank::print_status(){
 	cout << "Current Bank Status" << endl;
 
 	map<int, Account*>::iterator it = account_map.begin();
-	for(it; it != account_map.end(); it++) {
+	for(; it != account_map.end(); it++) {
 		Account *account = (*it).second;
 
 		pthread_mutex_lock(&account->wrl);
@@ -50,12 +50,12 @@ void Bank::print_status(){
 		account->read_count++;
 		pthread_mutex_unlock(&account->wrl);
 
-		cout << "Account " << account->get_ID() << ":: Balance – " << account->get_balance << " $ , Account Password – " << account->get_password << endl;
+		cout << "Account " << account->get_ID() << ":: Balance – " << account->get_balance() << " $ , Account Password – " << account->get_password() << endl;
 
 		pthread_mutex_lock(&account->wrl);
 		account->read_count--;
 		if(account->read_count == 0)
-			pthread_cond_broadcast(bank_->c);
+			pthread_cond_broadcast(&c);
 		pthread_mutex_unlock(&account->wrl);
 	}
 
@@ -64,7 +64,7 @@ void Bank::print_status(){
 	pthread_mutex_lock(&wrl);
 	read_count--;
 	if(read_count == 0)
-		pthread_cond_broadcast(c);
+		pthread_cond_broadcast(&c);
 	pthread_mutex_unlock(&wrl);
 }
 
@@ -79,7 +79,7 @@ void Bank::charge_commision(){
 	pthread_mutex_unlock(&wrl);
 
 	map<int, Account*>::iterator it = account_map.begin();
-	for(it; it != account_map.end(); it++) {
+	for(; it != account_map.end(); it++) {
 		Account *account = (*it).second;
 
 		pthread_mutex_lock(&account->wrl);
@@ -99,7 +99,7 @@ void Bank::charge_commision(){
 
 		pthread_mutex_lock(&account->wrl);
 		account->write_flag = false;
-		pthread_cond_broadcast(account->c);
+		pthread_cond_broadcast(&account->c);
 		pthread_mutex_unlock(&account->wrl);
 	}
 

@@ -4,7 +4,7 @@
 
 #include <cstring>
 #include <pthread.h>
-#include <string.h>
+#include <string>
 
 #define PASSWORD_LEN 4
 
@@ -12,8 +12,13 @@
 
 
 class Account {
+private:
+	int id_;
+	std::string password_;
+	int balance_;
+	bool VIP_;
 public:
-	Account(int id, string password, int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
+	Account(int id, std::string password, int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
 		password_ = password;
 		pthread_mutex_init(&wrl, NULL);
 		pthread_cond_init(&c, NULL);
@@ -57,17 +62,13 @@ public:
 		}else{
 			balance_ -= rhs;
 		}
+		return *this;
 	}
 
 	pthread_mutex_t wrl;
 	pthread_cond_t c;
 	int read_count;
 	bool write_flag;
-private:
-	int id_;
-	std::string password_;
-	int balance_;
-	bool VIP_;
 };
 
 

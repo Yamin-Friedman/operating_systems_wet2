@@ -4,74 +4,80 @@
 #include "Account.h"
 #include <vector>
 #include <unistd.h>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <pthread.h>
 
 using namespace std;
 
 
 //Function for ATM threads
 void *ATM_run_commands(void *ATM_pointer) {
-    ATM *ATM = (ATM*)ATM_pointer;
+    ATM *atm = (ATM*)ATM_pointer;
     string line;
     string delim = " ";
-    string command;
+    char command;
     int id;
 	int amount;
 	int target_id;
 	int init_balance;
     string password;
 
-    while ( getline (ATM->input_file,line) ){
+    while ( getline(atm->input_file,line) ){
         vector<string> args;
-        istringstream stream(line);
-        string arg;
+	    size_t pos = 0;
+	    string token;
 
-        while (getline(stream, arg, delim)) {
-            args.push_back(arg);
-        }
+	    while ((pos = line.find(delim)) != string::npos) {
+		    token = line.substr(0, pos);
+		    line.erase(0, pos + delim.length());
+		    args.push_back(token);
+	    }
 
-        command = args[0];
+        command = args[0].front();
 
         switch(command) {
-            case "O" :
+            case 'O' :
                 id = stoi(args[1]);
                 password = args[2];
                 init_balance = stoi(args[3]);
-                ATM->open_account(id,password,init_balance);
+		        atm->open_account(id,password,init_balance);
                 break;
-            case "L" :
+            case 'L' :
                 id = stoi(args[1]);
                 password = args[2];
-                ATM->make_VIP(id,password);
+		        atm->make_VIP(id,password);
                 break;
-            case "D" :
-                id = stoi(args[1]);
-                password = args[2];
-                amount = stoi(args[3]);
-                ATM->deposit(id,password,amount);
-                break;
-            case "W" :
+            case 'D' :
                 id = stoi(args[1]);
                 password = args[2];
                 amount = stoi(args[3]);
-                ATM->withdrawl(id,password,amount);
+		        atm->deposit(id,password,amount);
                 break;
-            case "B" :
+            case 'W' :
                 id = stoi(args[1]);
                 password = args[2];
-                ATM->check_balance(id,password);
+                amount = stoi(args[3]);
+		        atm->withdrawl(id,password,amount);
                 break;
-            case "T" :
+            case 'B' :
+                id = stoi(args[1]);
+                password = args[2];
+		        atm->check_balance(id,password);
+                break;
+            case 'T' :
                 id = stoi(args[1]);
                 password = args[2];
                 target_id = stoi(args[3]);
                 amount = stoi(args[4]);
-                ATM->transfer_money(id,password,target_id,amount);
+		        atm->transfer_money(id,password,target_id,amount);
                 break;
         }
         usleep(100);
     }
-    ATM->input_file.close();
-    delete ATM;
+	atm->input_file.close();
+    delete atm;
     pthread_exit(NULL);
 }
 

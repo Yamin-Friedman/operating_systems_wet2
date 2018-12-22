@@ -7,23 +7,24 @@
 #include <iostream>
 #include <pthread.h>
 #include <fstream>
+#include <unistd.h>
 
 using namespace std;
 
 
 class ATM {
 public:
-	ATM(int id,Bank *bank):bank_(bank),id_(id){}
-	~ATM();
+	ATM(int id,Bank *bank):id_(id),bank_(bank){}
+	~ATM(){};
 
-	void open_account(int id, char password[PASSWORD_LEN + 1], int init_balance);
-	void make_VIP(int id, char password[PASSWORD_LEN + 1]);
-	void deposit(int id, char password[PASSWORD_LEN + 1], int amount);
-	void withdrawl(int id, char password[PASSWORD_LEN + 1], int amount);
-	void check_balance(int id, char password[PASSWORD_LEN + 1]);
-	void transfer_money(int id, char password[PASSWORD_LEN + 1], int target_id, int amount);
+	void open_account(int id, string password, int init_balance);
+	void make_VIP(int id, string password);
+	void deposit(int id,string password, int amount);
+	void withdrawl(int id, string password, int amount);
+	void check_balance(int id, string password);
+	void transfer_money(int id, string password, int target_id, int amount);
 
-	ofstream input_file;
+	fstream input_file;
 private:
 	int id_;
 	Bank *bank_;
