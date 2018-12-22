@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -E remo
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2"
+CMAKE_SOURCE_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/wet2.dir/depend.make
@@ -58,16 +58,16 @@ include CMakeFiles/wet2.dir/flags.make
 
 CMakeFiles/wet2.dir/main.cpp.obj: CMakeFiles/wet2.dir/flags.make
 CMakeFiles/wet2.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/wet2.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\main.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/wet2.dir/main.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\main.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\main.cpp"
 
 CMakeFiles/wet2.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\main.cpp" > CMakeFiles\wet2.dir\main.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\main.cpp" > CMakeFiles\wet2.dir\main.cpp.i
 
 CMakeFiles/wet2.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\main.cpp" -o CMakeFiles\wet2.dir\main.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\main.cpp" -o CMakeFiles\wet2.dir\main.cpp.s
 
 CMakeFiles/wet2.dir/main.cpp.obj.requires:
 
@@ -82,16 +82,16 @@ CMakeFiles/wet2.dir/main.cpp.obj.provides.build: CMakeFiles/wet2.dir/main.cpp.ob
 
 CMakeFiles/wet2.dir/ATM.cpp.obj: CMakeFiles/wet2.dir/flags.make
 CMakeFiles/wet2.dir/ATM.cpp.obj: ../ATM.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/wet2.dir/ATM.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\ATM.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\ATM.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/wet2.dir/ATM.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\ATM.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\ATM.cpp"
 
 CMakeFiles/wet2.dir/ATM.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2.dir/ATM.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\ATM.cpp" > CMakeFiles\wet2.dir\ATM.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\ATM.cpp" > CMakeFiles\wet2.dir\ATM.cpp.i
 
 CMakeFiles/wet2.dir/ATM.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2.dir/ATM.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\ATM.cpp" -o CMakeFiles\wet2.dir\ATM.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\ATM.cpp" -o CMakeFiles\wet2.dir\ATM.cpp.s
 
 CMakeFiles/wet2.dir/ATM.cpp.obj.requires:
 
@@ -106,16 +106,16 @@ CMakeFiles/wet2.dir/ATM.cpp.obj.provides.build: CMakeFiles/wet2.dir/ATM.cpp.obj
 
 CMakeFiles/wet2.dir/Bank.cpp.obj: CMakeFiles/wet2.dir/flags.make
 CMakeFiles/wet2.dir/Bank.cpp.obj: ../Bank.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wet2.dir/Bank.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\Bank.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Bank.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wet2.dir/Bank.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\Bank.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\Bank.cpp"
 
 CMakeFiles/wet2.dir/Bank.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2.dir/Bank.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Bank.cpp" > CMakeFiles\wet2.dir\Bank.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\Bank.cpp" > CMakeFiles\wet2.dir\Bank.cpp.i
 
 CMakeFiles/wet2.dir/Bank.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2.dir/Bank.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Bank.cpp" -o CMakeFiles\wet2.dir\Bank.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\Bank.cpp" -o CMakeFiles\wet2.dir\Bank.cpp.s
 
 CMakeFiles/wet2.dir/Bank.cpp.obj.requires:
 
@@ -128,36 +128,11 @@ CMakeFiles/wet2.dir/Bank.cpp.obj.provides: CMakeFiles/wet2.dir/Bank.cpp.obj.requ
 CMakeFiles/wet2.dir/Bank.cpp.obj.provides.build: CMakeFiles/wet2.dir/Bank.cpp.obj
 
 
-CMakeFiles/wet2.dir/Account.cpp.obj: CMakeFiles/wet2.dir/flags.make
-CMakeFiles/wet2.dir/Account.cpp.obj: ../Account.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/wet2.dir/Account.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\wet2.dir\Account.cpp.obj -c "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Account.cpp"
-
-CMakeFiles/wet2.dir/Account.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2.dir/Account.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Account.cpp" > CMakeFiles\wet2.dir\Account.cpp.i
-
-CMakeFiles/wet2.dir/Account.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2.dir/Account.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\Account.cpp" -o CMakeFiles\wet2.dir\Account.cpp.s
-
-CMakeFiles/wet2.dir/Account.cpp.obj.requires:
-
-.PHONY : CMakeFiles/wet2.dir/Account.cpp.obj.requires
-
-CMakeFiles/wet2.dir/Account.cpp.obj.provides: CMakeFiles/wet2.dir/Account.cpp.obj.requires
-	$(MAKE) -f CMakeFiles\wet2.dir\build.make CMakeFiles/wet2.dir/Account.cpp.obj.provides.build
-.PHONY : CMakeFiles/wet2.dir/Account.cpp.obj.provides
-
-CMakeFiles/wet2.dir/Account.cpp.obj.provides.build: CMakeFiles/wet2.dir/Account.cpp.obj
-
-
 # Object files for target wet2
 wet2_OBJECTS = \
 "CMakeFiles/wet2.dir/main.cpp.obj" \
 "CMakeFiles/wet2.dir/ATM.cpp.obj" \
-"CMakeFiles/wet2.dir/Bank.cpp.obj" \
-"CMakeFiles/wet2.dir/Account.cpp.obj"
+"CMakeFiles/wet2.dir/Bank.cpp.obj"
 
 # External object files for target wet2
 wet2_EXTERNAL_OBJECTS =
@@ -165,12 +140,11 @@ wet2_EXTERNAL_OBJECTS =
 wet2.exe: CMakeFiles/wet2.dir/main.cpp.obj
 wet2.exe: CMakeFiles/wet2.dir/ATM.cpp.obj
 wet2.exe: CMakeFiles/wet2.dir/Bank.cpp.obj
-wet2.exe: CMakeFiles/wet2.dir/Account.cpp.obj
 wet2.exe: CMakeFiles/wet2.dir/build.make
 wet2.exe: CMakeFiles/wet2.dir/linklibs.rsp
 wet2.exe: CMakeFiles/wet2.dir/objects1.rsp
 wet2.exe: CMakeFiles/wet2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable wet2.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable wet2.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\wet2.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -181,7 +155,6 @@ CMakeFiles/wet2.dir/build: wet2.exe
 CMakeFiles/wet2.dir/requires: CMakeFiles/wet2.dir/main.cpp.obj.requires
 CMakeFiles/wet2.dir/requires: CMakeFiles/wet2.dir/ATM.cpp.obj.requires
 CMakeFiles/wet2.dir/requires: CMakeFiles/wet2.dir/Bank.cpp.obj.requires
-CMakeFiles/wet2.dir/requires: CMakeFiles/wet2.dir/Account.cpp.obj.requires
 
 .PHONY : CMakeFiles/wet2.dir/requires
 
@@ -190,6 +163,6 @@ CMakeFiles/wet2.dir/clean:
 .PHONY : CMakeFiles/wet2.dir/clean
 
 CMakeFiles/wet2.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles\wet2.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles\wet2.dir\DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/wet2.dir/depend
 

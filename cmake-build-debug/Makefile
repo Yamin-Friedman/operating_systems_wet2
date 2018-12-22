@@ -47,10 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -E remo
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2"
+CMAKE_SOURCE_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles\progress.marks"
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Yamin\Documents\Technion\Operating systems\Operating_systems\wet2\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Yamin\Documents\Technion\Operating systems\operating_systems_wet2\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -149,33 +149,6 @@ ATM.cpp.s:
 	$(MAKE) -f CMakeFiles\wet2.dir\build.make CMakeFiles/wet2.dir/ATM.cpp.s
 .PHONY : ATM.cpp.s
 
-Account.obj: Account.cpp.obj
-
-.PHONY : Account.obj
-
-# target to build an object file
-Account.cpp.obj:
-	$(MAKE) -f CMakeFiles\wet2.dir\build.make CMakeFiles/wet2.dir/Account.cpp.obj
-.PHONY : Account.cpp.obj
-
-Account.i: Account.cpp.i
-
-.PHONY : Account.i
-
-# target to preprocess a source file
-Account.cpp.i:
-	$(MAKE) -f CMakeFiles\wet2.dir\build.make CMakeFiles/wet2.dir/Account.cpp.i
-.PHONY : Account.cpp.i
-
-Account.s: Account.cpp.s
-
-.PHONY : Account.s
-
-# target to generate assembly for a file
-Account.cpp.s:
-	$(MAKE) -f CMakeFiles\wet2.dir\build.make CMakeFiles/wet2.dir/Account.cpp.s
-.PHONY : Account.cpp.s
-
 Bank.obj: Bank.cpp.obj
 
 .PHONY : Bank.obj
@@ -242,9 +215,6 @@ help:
 	@echo ... ATM.obj
 	@echo ... ATM.i
 	@echo ... ATM.s
-	@echo ... Account.obj
-	@echo ... Account.i
-	@echo ... Account.s
 	@echo ... Bank.obj
 	@echo ... Bank.i
 	@echo ... Bank.s

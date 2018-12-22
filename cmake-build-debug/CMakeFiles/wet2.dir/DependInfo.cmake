@@ -4,10 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/ATM.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/cmake-build-debug/CMakeFiles/wet2.dir/ATM.cpp.obj"
-  "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/Account.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/cmake-build-debug/CMakeFiles/wet2.dir/Account.cpp.obj"
-  "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/Bank.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/cmake-build-debug/CMakeFiles/wet2.dir/Bank.cpp.obj"
-  "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/main.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/Operating_systems/wet2/cmake-build-debug/CMakeFiles/wet2.dir/main.cpp.obj"
+  "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/ATM.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/cmake-build-debug/CMakeFiles/wet2.dir/ATM.cpp.obj"
+  "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/Bank.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/cmake-build-debug/CMakeFiles/wet2.dir/Bank.cpp.obj"
+  "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/main.cpp" "C:/Users/Yamin/Documents/Technion/Operating systems/operating_systems_wet2/cmake-build-debug/CMakeFiles/wet2.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

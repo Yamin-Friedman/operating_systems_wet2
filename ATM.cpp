@@ -2,6 +2,8 @@
 
 #include "ATM.h"
 
+#define SEC 1000000
+
 void ATM::open_account(int id, string password, int init_balance){
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
@@ -16,7 +18,7 @@ void ATM::open_account(int id, string password, int init_balance){
 	} else {
 		Account *new_account = new Account(id,password,init_balance,false);
 		bank_->insert_account(new_account);
-		usleep(1000000);
+		usleep(SEC);
 		bank_->output_log << id_ << ": New account id is " << id << " with password " << password << " and initial balance " << init_balance << endl;
 	}
 	pthread_mutex_lock(&bank_->wrl);
@@ -57,7 +59,7 @@ void ATM::make_VIP(int id, string password){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – password for account id " << id << " is incorrect" << endl;
 	} else {
 		account->change_VIP_status(true);
-		usleep(1000000);
+		usleep(SEC);
 	}
 	pthread_mutex_lock(&account->wrl);
 	account->write_flag = false;
@@ -104,7 +106,7 @@ void ATM::deposit(int id, string password, int amount){
 	} else {
 		*account += amount;
 		bank_->output_log << id_ << ": Account " << id << " new balance is " << account->get_balance() << " after " << amount << " $ was deposited" << endl;
-		usleep(1000000);
+		usleep(SEC);
 	}
 
 	pthread_mutex_lock(&account->wrl);
@@ -157,7 +159,7 @@ void ATM::withdrawl(int id, string password, int amount){
 		catch (int){
 			bank_->output_log << "Error " << id_ << ": Your transaction failed – account id " << id <<" balance is lower than " << amount << endl;
 		}
-		usleep(1000000);
+		usleep(SEC);
 	}
 
 	pthread_mutex_lock(&account->wrl);
@@ -204,7 +206,7 @@ void ATM::check_balance(int id, string password){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – password for account id " << id << " is incorrect" << endl;
 	} else {
 		bank_->output_log << id_ << ": Account " << id << " balance is " << account->get_balance() << endl;
-		usleep(1000000);
+		usleep(SEC);
 	}
 
 	pthread_mutex_lock(&account->wrl);
@@ -276,7 +278,7 @@ void ATM::transfer_money(int id, string password, int target_id, int amount){
 		*target_account += amount;
 		bank_->output_log << id_ << ">: Transfer " << amount << " from account " << id << " to account " << target_id;
 		bank_->output_log << " new account balance is " << account->get_balance() << " new target account balance is " << target_account->get_balance() << endl;
-		usleep(1000000);
+		usleep(SEC);
 	}
 
 	pthread_mutex_lock(&target_account->wrl);

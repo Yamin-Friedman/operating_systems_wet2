@@ -6,10 +6,6 @@
 #include <pthread.h>
 #include <string>
 
-#define PASSWORD_LEN 4
-
-
-
 
 class Account {
 private:

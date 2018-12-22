@@ -2,7 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/wet2.dir/main.cpp.obj"
   "CMakeFiles/wet2.dir/ATM.cpp.obj"
   "CMakeFiles/wet2.dir/Bank.cpp.obj"
-  "CMakeFiles/wet2.dir/Account.cpp.obj"
   "wet2.pdb"
   "wet2.exe"
   "wet2.exe.manifest"

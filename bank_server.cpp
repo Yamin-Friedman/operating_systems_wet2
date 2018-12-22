@@ -9,6 +9,8 @@
 #include <sstream>
 #include <pthread.h>
 
+#define SEC 1000000
+
 using namespace std;
 
 
@@ -75,7 +77,7 @@ void *ATM_run_commands(void *ATM_pointer) {
 	        default:
 		        break;
         }
-        usleep(100000);
+        usleep(SEC/10);
     }
 	atm->input_file.close();
     delete atm;
@@ -87,7 +89,7 @@ void *bank_charge_commisions(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
         bank->charge_commision();
-        usleep(3000000);
+        usleep(SEC*3);
     }
     pthread_exit(NULL);
 }
@@ -97,7 +99,7 @@ void *bank_print_status(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
         bank->print_status();
-        usleep(500000);
+        usleep(SEC/2);
     }
     pthread_exit(NULL);
 }
@@ -112,9 +114,7 @@ int main(int argc,char **argv) {
 		cout << "illegal arguments" << endl;
 		exit(-1);
 	}
-
     int num_ATM = stoi(argv[1]);
-
 	if (argc != num_ATM + 2) {
 		cout << "illegal arguments" << endl;
 		exit(-1);
@@ -126,10 +126,6 @@ int main(int argc,char **argv) {
     threads = new pthread_t[num_ATM + 2];
     for (i = 0; i < num_ATM; i++) {
 	    string ATM_filename = argv[i + 2];
-//	    string filename_tmp = ATM_filename;
-//	    string delimiter = "_";
-//	    filename_tmp.erase(0, filename_tmp.find(delimiter) + delimiter.length());
-//	    int ATM_id = stoi(filename_tmp.substr(0, filename_tmp.find(delimiter)));
 	    int ATM_id = i + 1;
         ATM *new_ATM = new ATM(ATM_id,&bank);
         new_ATM->input_file.open(ATM_filename);
@@ -158,9 +154,15 @@ int main(int argc,char **argv) {
         pthread_join(threads[i],NULL);
     }
     bank.bank_open = false;
+
+	// wait for the bank threads to exit
     pthread_join(threads[i],NULL);
     pthread_join(threads[i + 1],NULL);
+
+
 	delete[] threads;
     bank.output_log.close();
+
+	return 0;
 
 }
