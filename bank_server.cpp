@@ -23,15 +23,14 @@ void *ATM_run_commands(void *ATM_pointer) {
 	int target_id;
 	int init_balance;
     string password;
-
     while ( getline(atm->input_file,line) ){
         vector<string> args;
-	    size_t pos = 0;
 	    string token;
-
-	    while ((pos = line.find(delim)) != string::npos) {
-		    token = line.substr(0, pos);
-		    line.erase(0, pos + delim.length());
+	    istringstream ss(line);
+	    if (line == "")
+		    break;
+	    while(getline(ss,token,' '))
+	    {
 		    args.push_back(token);
 	    }
 
@@ -73,8 +72,10 @@ void *ATM_run_commands(void *ATM_pointer) {
                 amount = stoi(args[4]);
 		        atm->transfer_money(id,password,target_id,amount);
                 break;
+	        default:
+		        break;
         }
-        usleep(100);
+        usleep(100000);
     }
 	atm->input_file.close();
     delete atm;
@@ -86,7 +87,7 @@ void *bank_charge_commisions(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
         bank->charge_commision();
-        sleep(3);
+        usleep(3000000);
     }
     pthread_exit(NULL);
 }
@@ -96,7 +97,7 @@ void *bank_print_status(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
         bank->print_status();
-        usleep(500);
+        usleep(500000);
     }
     pthread_exit(NULL);
 }
@@ -114,22 +115,22 @@ int main(int argc,char **argv) {
 
     int num_ATM = stoi(argv[1]);
 
-	if (argc < num_ATM + 2) {
+	if (argc != num_ATM + 2) {
 		cout << "illegal arguments" << endl;
 		exit(-1);
 	}
-
-    bank.output_log.open("log.txt");
+    bank.output_log.open("log.txt",fstream::out);
 
     // Init ATMs and start threads
 	pthread_t *threads;
     threads = new pthread_t[num_ATM + 2];
     for (i = 0; i < num_ATM; i++) {
 	    string ATM_filename = argv[i + 2];
-	    string filename_tmp = ATM_filename;
-	    string delimiter = "_";
-	    filename_tmp.erase(0, filename_tmp.find(delimiter) + delimiter.length());
-	    int ATM_id = stoi(filename_tmp.substr(0, filename_tmp.find(delimiter)));
+//	    string filename_tmp = ATM_filename;
+//	    string delimiter = "_";
+//	    filename_tmp.erase(0, filename_tmp.find(delimiter) + delimiter.length());
+//	    int ATM_id = stoi(filename_tmp.substr(0, filename_tmp.find(delimiter)));
+	    int ATM_id = i + 1;
         ATM *new_ATM = new ATM(ATM_id,&bank);
         new_ATM->input_file.open(ATM_filename);
         res = pthread_create(&threads[i],NULL, ATM_run_commands, (void*)new_ATM);
@@ -159,9 +160,7 @@ int main(int argc,char **argv) {
     bank.bank_open = false;
     pthread_join(threads[i],NULL);
     pthread_join(threads[i + 1],NULL);
-
 	delete[] threads;
-
     bank.output_log.close();
 
 }

@@ -12,10 +12,11 @@ Bank::Bank(){
 	      printf("\n cond init failed\n");
 	      return;
 	  }
-		read_count = 0;
-		write_flag = false;
-		private_balance = 0;
-		bank_open = true;
+	read_count = 0;
+	write_flag = false;
+	private_balance = 0;
+	bank_open = true;
+
 }
 
 Bank::~Bank(){
@@ -31,7 +32,7 @@ Bank::~Bank(){
 
 void Bank::print_status(){
 	pthread_mutex_lock(&wrl);
-	while(&write_flag)
+	while(write_flag)
 		pthread_cond_wait(&c, &wrl);
 	read_count++;
 	pthread_mutex_unlock(&wrl);
@@ -45,7 +46,7 @@ void Bank::print_status(){
 		Account *account = (*it).second;
 
 		pthread_mutex_lock(&account->wrl);
-		while(&account->write_flag)
+		while(account->write_flag)
 			pthread_cond_wait(&account->c, &account->wrl);
 		account->read_count++;
 		pthread_mutex_unlock(&account->wrl);
@@ -55,11 +56,11 @@ void Bank::print_status(){
 		pthread_mutex_lock(&account->wrl);
 		account->read_count--;
 		if(account->read_count == 0)
-			pthread_cond_broadcast(&c);
+			pthread_cond_broadcast(&account->c);
 		pthread_mutex_unlock(&account->wrl);
 	}
 
-	cout << "The Bank has " << private_balance << "$" << endl;
+	cout << "The Bank has " << private_balance << " $" << endl;
 
 	pthread_mutex_lock(&wrl);
 	read_count--;
@@ -70,10 +71,9 @@ void Bank::print_status(){
 
 void Bank::charge_commision(){
 	int percent = (rand() %  3) + 2; // get random number between 2 and 4
-	cout << percent << endl; //debug print
 
 	pthread_mutex_lock(&wrl);
-	while(&write_flag)
+	while(write_flag)
 		pthread_cond_wait(&c, &wrl);
 	read_count++;
 	pthread_mutex_unlock(&wrl);
@@ -83,7 +83,7 @@ void Bank::charge_commision(){
 		Account *account = (*it).second;
 
 		pthread_mutex_lock(&account->wrl);
-		while(&account->write_flag)
+		while(account->write_flag)
 			pthread_cond_wait(&account->c, &account->wrl);
 		account->write_flag = true;
 		while(account->read_count > 0)
@@ -94,7 +94,7 @@ void Bank::charge_commision(){
 			int commision = (int)((account->get_balance() * percent )/ 100);
 			*account -= commision;
 			private_balance += commision;
-			output_log << "Bank: commissions of " << percent << " % were charged, the bank gained " << commision << " $ from account " << account->get_ID() << endl;
+			output_log << "Bank: commissions of " << percent << "% were charged, the bank gained " << commision << " $ from account " << account->get_ID() << endl;
 		}
 
 		pthread_mutex_lock(&account->wrl);
@@ -104,8 +104,9 @@ void Bank::charge_commision(){
 	}
 
 	pthread_mutex_lock(&wrl);
-	write_flag = false;
-	pthread_cond_broadcast(&c);
+	read_count--;
+	if(read_count == 0)
+		pthread_cond_broadcast(&c);
 	pthread_mutex_unlock(&wrl);
 }
 
