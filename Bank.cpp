@@ -1,6 +1,11 @@
 
 #include "Bank.h"
 
+//**************************************************************************************
+// function name: Bank
+// Description: Constructor for a Bank
+// Returns: void
+//**************************************************************************************
 Bank::Bank(){
 	if (pthread_mutex_init(&wrl, NULL) != 0)
     {
@@ -19,6 +24,11 @@ Bank::Bank(){
 
 }
 
+//**************************************************************************************
+// function name: ~Bank
+// Description: Deconstructor for a Bank
+// Returns: void
+//**************************************************************************************
 Bank::~Bank(){
 	pthread_mutex_destroy(&wrl);
 	pthread_cond_destroy(&c);
@@ -30,6 +40,11 @@ Bank::~Bank(){
 	}
 }
 
+//**************************************************************************************
+// function name: print_status
+// Description: Prints the current status of the bank to the screen
+// Returns: void
+//**************************************************************************************
 void Bank::print_status(){
 	pthread_mutex_lock(&wrl);
 	while(write_flag)
@@ -69,6 +84,11 @@ void Bank::print_status(){
 	pthread_mutex_unlock(&wrl);
 }
 
+//**************************************************************************************
+// function name: charge_commision
+// Description: Charges a commision from all the non-VIP accounts in the bank
+// Returns: void
+//**************************************************************************************
 void Bank::charge_commision(){
 	int percent = (rand() %  3) + 2; // get random number between 2 and 4
 
@@ -111,6 +131,12 @@ void Bank::charge_commision(){
 	pthread_mutex_unlock(&wrl);
 }
 
+//**************************************************************************************
+// function name: insert_account
+// Description: Inserts an account into the bank
+// Parameters: Account *account - A pointer to the account to add
+// Returns: bool
+//**************************************************************************************
 bool Bank::insert_account(Account *account){
 	int id = account->get_ID();
 	if(account_map.find(id) == account_map.end()) {

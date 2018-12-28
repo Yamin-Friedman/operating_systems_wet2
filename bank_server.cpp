@@ -14,7 +14,13 @@
 using namespace std;
 
 
-//Function for ATM threads
+//**************************************************************************************
+// function name: ATM_run_commands
+// Description: This function is what the ATM threads run. The ATM reads from its input file every amount of time and
+// does the required action. When the input file is done the thread exits.
+// Parameters: void *ATM_pointer - This is a pointer to the ATM
+// Returns: void*
+//**************************************************************************************
 void *ATM_run_commands(void *ATM_pointer) {
     ATM *atm = (ATM*)ATM_pointer;
     string line;
@@ -84,7 +90,13 @@ void *ATM_run_commands(void *ATM_pointer) {
     pthread_exit(NULL);
 }
 
-// This is the function that the thread that charges commisions runs
+//**************************************************************************************
+// function name: bank_charge_commisions
+// Description: This function is what the bank charge commisions thread runs. Every 3 seconds it runs the charge commisions
+// function of the bank. When the bank is closed the thread exits.
+// Parameters: void *bank_ptr - This is a pointer to the Bank
+// Returns: void*
+//**************************************************************************************
 void *bank_charge_commisions(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
@@ -94,7 +106,13 @@ void *bank_charge_commisions(void *bank_ptr){
     pthread_exit(NULL);
 }
 
-// This is the function that the thread that prints the status runs
+//**************************************************************************************
+// function name: bank_charge_commisions
+// Description: This function is what the bank status thread runs. Every half a second it runs the print status
+// function of the bank. When the bank is closed the thread exits.
+// Parameters: void *bank_ptr - This is a pointer to the Bank
+// Returns: void*
+//**************************************************************************************
 void *bank_print_status(void *bank_ptr){
     Bank *bank = (Bank*)bank_ptr;
     while (bank->bank_open){
@@ -104,6 +122,11 @@ void *bank_print_status(void *bank_ptr){
     pthread_exit(NULL);
 }
 
+//**************************************************************************************
+// function name: main
+// Description: The main function for the bank program. It receives a number of ATMs to run and input files for each one.
+// Returns: void*
+//**************************************************************************************
 int main(int argc,char **argv) {
     Bank bank;
     int i, res;
