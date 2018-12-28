@@ -5,6 +5,7 @@
 #include <cstring>
 #include <pthread.h>
 #include <string>
+#include <iostream>
 
 
 class Account {
@@ -16,8 +17,16 @@ private:
 public:
 	Account(int id, std::string password, int balance, bool VIP): id_(id),balance_(balance),VIP_(VIP){
 		password_ = password;
-		pthread_mutex_init(&wrl, NULL);
-		pthread_cond_init(&c, NULL);
+		if (pthread_mutex_init(&wrl, NULL) != 0)
+		{
+			std::cerr << "\n mutex init failed\n" ;
+			return;
+		}
+		if (pthread_cond_init(&c, NULL) != 0)
+		{
+			std::cerr << "\n cond init failed\n" ;
+			return;
+		}
 		read_count = 0;
 		write_flag = false;
 	}

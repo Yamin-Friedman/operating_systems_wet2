@@ -4,14 +4,14 @@
 Bank::Bank(){
 	if (pthread_mutex_init(&wrl, NULL) != 0)
     {
-        printf("\n mutex init failed\n");
+        cerr << "\n mutex init failed\n" ;
         return;
     }
 	if (pthread_cond_init(&c, NULL) != 0)
-	 	{
-	      printf("\n cond init failed\n");
-	      return;
-	  }
+	{
+		cerr << "\n cond init failed\n" ;
+		return;
+	}
 	read_count = 0;
 	write_flag = false;
 	private_balance = 0;
@@ -75,7 +75,9 @@ void Bank::charge_commision(){
 	pthread_mutex_lock(&wrl);
 	while(write_flag)
 		pthread_cond_wait(&c, &wrl);
-	read_count++;
+	write_flag = true;
+	while(read_count > 0)
+		pthread_cond_wait(&c, &wrl);
 	pthread_mutex_unlock(&wrl);
 
 	map<int, Account*>::iterator it = account_map.begin();
@@ -104,9 +106,8 @@ void Bank::charge_commision(){
 	}
 
 	pthread_mutex_lock(&wrl);
-	read_count--;
-	if(read_count == 0)
-		pthread_cond_broadcast(&c);
+	write_flag = false;
+	pthread_cond_broadcast(&c);
 	pthread_mutex_unlock(&wrl);
 }
 

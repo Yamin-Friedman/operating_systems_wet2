@@ -111,12 +111,12 @@ int main(int argc,char **argv) {
 
     // Check input
 	if (argc < 2) {
-		cout << "illegal arguments" << endl;
+		cerr << "illegal arguments" << endl;
 		exit(-1);
 	}
     int num_ATM = stoi(argv[1]);
 	if (argc != num_ATM + 2) {
-		cout << "illegal arguments" << endl;
+		cerr << "illegal arguments" << endl;
 		exit(-1);
 	}
     bank.output_log.open("log.txt",fstream::out);
@@ -132,7 +132,7 @@ int main(int argc,char **argv) {
         res = pthread_create(&threads[i],NULL, ATM_run_commands, (void*)new_ATM);
 
         if (res) {
-            cout << "Error:unable to create thread," << endl;
+	        cerr << "Error:unable to create thread," << endl;
             exit(-1);
         }
     }
@@ -140,12 +140,12 @@ int main(int argc,char **argv) {
     // Start bank threads
     res = pthread_create(&threads[i],NULL, bank_charge_commisions, (void*)&bank);
     if (res) {
-        cout << "Error:unable to create thread," << endl;
+        cerr << "Error:unable to create thread," << endl;
         exit(-1);
     }
     res = pthread_create(&threads[i + 1],NULL, bank_print_status, (void*)&bank);
     if (res) {
-        cout << "Error:unable to create thread," << endl;
+        cerr << "Error:unable to create thread," << endl;
         exit(-1);
     }
 

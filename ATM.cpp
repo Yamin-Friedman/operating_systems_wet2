@@ -223,6 +223,11 @@ void ATM::check_balance(int id, string password){
 }
 
 void ATM::transfer_money(int id, string password, int target_id, int amount){
+
+	//Do nothing if they are the same account
+	if (id == target_id)
+		return;
+
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
 		pthread_cond_wait(&bank_->c, &bank_->wrl);
