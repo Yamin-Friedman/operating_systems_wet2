@@ -4,6 +4,14 @@
 
 #define SEC 1000000
 
+//**************************************************************************************
+// function name: open_account
+// Description: Opens a new account in the bank. Locks the bank for writing.
+// Parameters: int id - The id of the account
+// Parameters: string password - The password for the account
+// Paremeters: int init_balance - The initial balance of the Account
+// Returns: void
+//**************************************************************************************
 void ATM::open_account(int id, string password, int init_balance){
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
@@ -27,6 +35,13 @@ void ATM::open_account(int id, string password, int init_balance){
 	pthread_mutex_unlock(&bank_->wrl);
 }
 
+//**************************************************************************************
+// function name: make_VIP
+// Description: Makes an account a VIP. Locks the bank for reading and the account for writing.
+// Parameters: int id - The id of the account
+// Parameters: string password - The password for the account
+// Returns: void
+//**************************************************************************************
 void ATM::make_VIP(int id, string password){
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
@@ -73,6 +88,14 @@ void ATM::make_VIP(int id, string password){
 	pthread_mutex_unlock(&bank_->wrl);
 }
 
+//**************************************************************************************
+// function name: deposit
+// Description: Deposits amount into the account. Locks the bank for reading and the account for writing.
+// Parameters: int id - The id of the account
+// Parameters: string password - The password for the account
+// Paremeters: int amount - The amount to deposit
+// Returns: void
+//**************************************************************************************
 void ATM::deposit(int id, string password, int amount){
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
@@ -121,6 +144,14 @@ void ATM::deposit(int id, string password, int amount){
 	pthread_mutex_unlock(&bank_->wrl);
 }
 
+//**************************************************************************************
+// function name: withdrawl
+// Description: Withdraws amount from the account. Locks the bank for reading and the account for writing.
+// Parameters: int id - The id of the account
+// Parameters: string password - The password for the account
+// Paremeters: int amount - The amount to withdraw
+// Returns: void
+//**************************************************************************************
 void ATM::withdrawl(int id, string password, int amount){
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
@@ -174,6 +205,13 @@ void ATM::withdrawl(int id, string password, int amount){
 	pthread_mutex_unlock(&bank_->wrl);
 }
 
+//**************************************************************************************
+// function name: check_balance
+// Description: Checks the balance of the account. Locks the bank for reading and the account for reading.
+// Parameters: int id - The id of the account
+// Parameters: string password - The password for the account
+// Returns: void
+//**************************************************************************************
 void ATM::check_balance(int id, string password){
 
 	pthread_mutex_lock(&bank_->wrl);
@@ -222,6 +260,16 @@ void ATM::check_balance(int id, string password){
 	pthread_mutex_unlock(&bank_->wrl);
 }
 
+//**************************************************************************************
+// function name: transfer_money
+// Description: Transfers money from one account to another. Locks the bank for writing to prevent deadlock between
+// accounts and the accounts for writing.
+// Parameters: int id - The id of the account transfering money
+// Parameters: string password - The password for the account
+// Parameters: int id - The id of the account being transfered to
+// Paremeters: int amount - The amount to transfer
+// Returns: void
+//**************************************************************************************
 void ATM::transfer_money(int id, string password, int target_id, int amount){
 
 	//Do nothing if they are the same account
