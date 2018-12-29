@@ -33,7 +33,6 @@ Bank::~Bank(){
 	pthread_mutex_destroy(&wrl);
 	pthread_cond_destroy(&c);
 
-	// Might need to be fixed
 	map<int, Account*>::iterator it = account_map.begin();
 	for(; it != account_map.end(); it++) {
 		delete (*it).second;
