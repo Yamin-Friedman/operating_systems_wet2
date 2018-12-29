@@ -13,6 +13,7 @@
 // Returns: void
 //**************************************************************************************
 void ATM::open_account(int id, string password, int init_balance){
+	//Locks the bank for writing
 	pthread_mutex_lock(&bank_->wrl);
 	while(bank_->write_flag)
 		pthread_cond_wait(&bank_->c, &bank_->wrl);
@@ -23,16 +24,40 @@ void ATM::open_account(int id, string password, int init_balance){
 
 	if(bank_->get_account(id) != NULL){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – account with the same id exists" << endl;
+
+		pthread_mutex_lock(&bank_->wrl);
+		bank_->write_flag = false;
+		pthread_cond_broadcast(&bank_->c);
+		pthread_mutex_unlock(&bank_->wrl);
 	} else {
 		Account *new_account = new Account(id,password,init_balance,false);
 		bank_->insert_account(new_account);
+
+		//Locks the new account for writing
+		pthread_mutex_lock(&new_account->wrl);
+		while(new_account->write_flag)
+			pthread_cond_wait(&new_account->c, &new_account->wrl);
+		new_account->write_flag = true;
+		while(new_account->read_count > 0)
+			pthread_cond_wait(&new_account->c, &new_account->wrl);
+		pthread_mutex_unlock(&new_account->wrl);
+
+		//Unlocks the bank
+		pthread_mutex_lock(&bank_->wrl);
+		bank_->write_flag = false;
+		pthread_cond_broadcast(&bank_->c);
+		pthread_mutex_unlock(&bank_->wrl);
+
 		usleep(SEC);
 		bank_->output_log << id_ << ": New account id is " << id << " with password " << password << " and initial balance " << init_balance << endl;
+
+		//Unlocks the account after wait
+		pthread_mutex_lock(&new_account->wrl);
+		new_account->write_flag = false;
+		pthread_cond_broadcast(&new_account->c);
+		pthread_mutex_unlock(&new_account->wrl);
 	}
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->write_flag = false;
-	pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
+
 }
 
 //**************************************************************************************
@@ -51,14 +76,14 @@ void ATM::make_VIP(int id, string password){
 
 	Account *account = bank_->get_account(id);
 
+	//After we have gotten the account we can unlock the bank
+	pthread_mutex_lock(&bank_->wrl);
+	bank_->read_count--;
+	if(bank_->read_count == 0)
+		pthread_cond_broadcast(&bank_->c);
+	pthread_mutex_unlock(&bank_->wrl);
 	if(account == NULL){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – account id " << id <<" does not exist" << endl;
-		pthread_mutex_lock(&bank_->wrl);
-		bank_->read_count--;
-		if(bank_->read_count == 0)
-			pthread_cond_broadcast(&bank_->c);
-		pthread_mutex_unlock(&bank_->wrl);
-
 		return;
 	}
 
@@ -81,11 +106,6 @@ void ATM::make_VIP(int id, string password){
 	pthread_cond_broadcast(&account->c);
 	pthread_mutex_unlock(&account->wrl);
 
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->read_count--;
-	if(bank_->read_count == 0)
-		pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
 }
 
 //**************************************************************************************
@@ -105,14 +125,15 @@ void ATM::deposit(int id, string password, int amount){
 
 	Account *account = bank_->get_account(id);
 
+	//After we have gotten the account we can unlock the bank
+	pthread_mutex_lock(&bank_->wrl);
+	bank_->read_count--;
+	if(bank_->read_count == 0)
+		pthread_cond_broadcast(&bank_->c);
+	pthread_mutex_unlock(&bank_->wrl);
+
 	if(account == NULL){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – account id " << id <<" does not exist" << endl;
-		pthread_mutex_lock(&bank_->wrl);
-		bank_->read_count--;
-		if(bank_->read_count == 0)
-			pthread_cond_broadcast(&bank_->c);
-		pthread_mutex_unlock(&bank_->wrl);
-
 		return;
 	}
 
@@ -137,11 +158,6 @@ void ATM::deposit(int id, string password, int amount){
 	pthread_cond_broadcast(&account->c);
 	pthread_mutex_unlock(&account->wrl);
 
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->read_count--;
-	if(bank_->read_count == 0)
-		pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
 }
 
 //**************************************************************************************
@@ -161,13 +177,15 @@ void ATM::withdrawl(int id, string password, int amount){
 
 	Account *account = bank_->get_account(id);
 
+	//After we have gotten the account we can unlock the bank
+	pthread_mutex_lock(&bank_->wrl);
+	bank_->read_count--;
+	if(bank_->read_count == 0)
+		pthread_cond_broadcast(&bank_->c);
+	pthread_mutex_unlock(&bank_->wrl);
+
 	if(account == NULL){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – account id " << id <<" does not exist" << endl;
-		pthread_mutex_lock(&bank_->wrl);
-		bank_->read_count--;
-		if(bank_->read_count == 0)
-			pthread_cond_broadcast(&bank_->c);
-		pthread_mutex_unlock(&bank_->wrl);
 
 		return;
 	}
@@ -198,11 +216,6 @@ void ATM::withdrawl(int id, string password, int amount){
 	pthread_cond_broadcast(&account->c);
 	pthread_mutex_unlock(&account->wrl);
 
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->read_count--;
-	if(bank_->read_count == 0)
-		pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
 }
 
 //**************************************************************************************
@@ -222,14 +235,15 @@ void ATM::check_balance(int id, string password){
 
 	Account *account = bank_->get_account(id);
 
+	//After we have gotten the account we can unlock the bank
+	pthread_mutex_lock(&bank_->wrl);
+	bank_->read_count--;
+	if(bank_->read_count == 0)
+		pthread_cond_broadcast(&bank_->c);
+	pthread_mutex_unlock(&bank_->wrl);
+
 	if(account == NULL){
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – account id " << id <<" does not exist" << endl;
-
-		pthread_mutex_lock(&bank_->wrl);
-		bank_->read_count--;
-		if(bank_->read_count == 0)
-			pthread_cond_broadcast(&bank_->c);
-		pthread_mutex_unlock(&bank_->wrl);
 
 		return;
 	}
@@ -253,11 +267,6 @@ void ATM::check_balance(int id, string password){
 		pthread_cond_broadcast(&account->c);
 	pthread_mutex_unlock(&account->wrl);
 
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->read_count--;
-	if(bank_->read_count == 0)
-		pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
 }
 
 //**************************************************************************************
@@ -322,6 +331,12 @@ void ATM::transfer_money(int id, string password, int target_id, int amount){
 		pthread_cond_wait(&target_account->c, &target_account->wrl);
 	pthread_mutex_unlock(&target_account->wrl);
 
+	//In order to prevent deadlock we only unlock the bank after the account locks have been acquired
+	pthread_mutex_lock(&bank_->wrl);
+	bank_->write_flag = false;
+	pthread_cond_broadcast(&bank_->c);
+	pthread_mutex_unlock(&bank_->wrl);
+
 	 if (!account->check_password(password)) {
 		bank_->output_log << "Error " << id_ << ": Your transaction failed – password for account id " << id << " is incorrect" << endl;
 	} else if (account->get_balance() < amount) {
@@ -344,8 +359,4 @@ void ATM::transfer_money(int id, string password, int target_id, int amount){
 	pthread_cond_broadcast(&account->c);
 	pthread_mutex_unlock(&account->wrl);
 
-	pthread_mutex_lock(&bank_->wrl);
-	bank_->write_flag = false;
-	pthread_cond_broadcast(&bank_->c);
-	pthread_mutex_unlock(&bank_->wrl);
 }

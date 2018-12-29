@@ -90,7 +90,7 @@ void Bank::print_status(){
 // Returns: void
 //**************************************************************************************
 void Bank::charge_commision(){
-	int percent = (rand() %  3) + 2; // get random number between 2 and 4
+	int percent = rand() %  3 + 2; // get random number between 2 and 4
 
 	pthread_mutex_lock(&wrl);
 	while(write_flag)
